@@ -1,0 +1,107 @@
+body{
+  background:linear-gradient(rgba(104, 104, 104, 0.678), rgba(83, 83, 83, 0.13)), url('/images/background.jpg');
+  
+} 
+
+.navbar{
+  background-color: rgba(231, 218, 211, 0.300);
+}
+
+.navbar-brand{
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.navbar-nav > a{
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.main-login{
+  justify-content: center;
+}
+
+.login-body{
+  background-color: rgba(163, 184, 184, 0.384);
+  font-size: 2em;
+}
+.container{
+  color: black;
+}
+#navbarDropdown{
+  color:white;
+  font-size: 1.3rem;
+}
+.dropdown-menu{
+  
+  background-color: rgba(231, 218, 211, 0.753);
+  
+  font-size: 1.3rem;
+}
+.dropdown-dropdown-item{
+  color: red;
+}
+.navegacion{
+  display: flex;
+  justify-content: center;
+  padding: 3px;
+}
+.headerTabla{
+  display: flex;
+  justify-content: space-between;
+}
+.headerTabla > a{
+  color: white;
+}
+.mainForms{
+  display: flex;
+  justify-content: center;
+}
+.contenido-forms{
+  display: flex;
+  justify-content: center;
+  width: 95%;
+}
+.contenido-forms > form{
+  width: 80%;
+}
+.contenido-forms > .row{
+  display: flex;
+}
+.formLabels{
+  font-size: 1.5rem;
+  max-width: 20%;
+}
+.formApellidos{
+  font-size: 1.5rem;
+  max-width: 20%;
+}
+td > .row > .col{
+  padding: 3px;
+}
+.formFecha{
+  max-width: 35%;
+}
+.succ{
+  max-width: 15%;
+}
+.idEdit{
+  max-width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.btnNuevoC{
+  max-width: 8%;
+}
+.form-check-inline{
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.form-check-label{
+  font-size: 1.3rem;
+}
+.form-check-input{
+  font-size: 1.3rem;
+} 
