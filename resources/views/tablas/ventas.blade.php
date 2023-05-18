@@ -1,41 +1,51 @@
 @extends('layouts.app2')
 @section('Titulo','Ventas')
 @section('contenido')
-
-<div class="car-body" style="justify-content: center">
+<script>
+    // (A) RUN THIS ON PAGE LOAD
+    window.addEventListener("load", () => {
+        var htmlElemento = document.getElementsByTagName("html")[0].style.height;
+        var htmlElemento2 = document.querySelector("body");
+     /*  document.documentElement.style.height = 100hv; */
+      htmlElemento = "100hv";
+   
+    });
+    </script>
+<div class="car-body" style="justify-content: center;margin-top:120px">
     <div class="headerTabla">
         <button type="button" class="btn btn-light"  onclick="location.href ='/home';">Volver</button>
         <span> <h2>Ventas</h2></span>
-        <button type="button" class="btn btn-light"  onclick="location.href ='/registrar-venta';">Nueva</button>
+       
+        @if(Auth::user()->role=="Admin")
+        <button type="button" class="btn btn-primary"  onclick="location.href ='/registrar-venta';">Nueva</button>
+        @else
+            <a href=""></a>
+        @endif
     </div>
 
-    <table class="table table-bordered">
-        <tr>
+    <table class="table table-bordered mt-4">
+        <tr class="bg-info">
             <th>Semana</th>
-            <th>IDCliente</th>
+            <th>Cliente</th>
             <th>IDEmpleado</th>
             <th>Tipo</th>
             @if(Auth::user()->role=="Admin")
                 <th>Sucursal</th>
             @endif
             <th>Costo</th>
-            <th>Categoría<br>(Vendedor)</th>
-            <th>Comision</th>
         </tr>
         @if(count($data)>0)
         @foreach ($data as $item)
-       {{--  @dump($item) --}}
+        {{-- @dump($item) --}}
             <tr>
                 <td>{{$item->semana}}</td>
-                <td>{{$item->cliente_id}}</td>
+                <td>{{$item->nombre}} {{$item->apellido_p}}</td>
                 <td>{{$item->vendedor_id}}</td>
                 <td>{{$item->tipo}}</td>
                 @if(Auth::user()->role=="Admin")
                     <td>{{$item->sucursal}}</td>
                 @endif
-                <td>{{$item->costo}}</td>
-                <td>{{$item->categoria}}</td>
-                <td>{{$item->comision}}</td>
+                <td><b>{{$item->costo}}</b></td>
             </tr>
             {{--
             <tr>

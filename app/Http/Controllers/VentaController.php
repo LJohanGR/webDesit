@@ -18,8 +18,13 @@ class VentaController extends Controller
         if(Auth::guest()){
             return redirect()->route('login');
         }
+        if(Auth::user()->role=='Manager'){
+            return redirect()->route('comisiones');
+        }
         if(Auth::user()->role=='Admin'){
-            $data = DB::table('ventas')->where('sucursal','<',100)->paginate(20);
+            /* $data = DB::table('ventas')->where('sucursal','<',100)->paginate(20); */
+            $data = DB::table('ventas')->where('ventas.sucursal','>',0)->join('vendedores', 'vendedores.id','=','ventas.vendedor_id')->join('clientes', 'clientes.id','=','ventas.cliente_id')->select('ventas.*','clientes.nombre','clientes.apellido_p')->paginate(20);
+        
             return view('tablas.ventas',compact('data'))->with('i', (request()->input('page',1)-1)*20);
         }
         /* $data = Auth::user()->sucursal;
@@ -30,7 +35,7 @@ class VentaController extends Controller
          */
         /* return DB::table('ventas')->where('ventas.sucursal','=',Auth::user()->sucursal)->join('vendedores', 'vendedores.id','=','ventas.vendedor_id')->paginate(20);
         */ 
-        $data = DB::table('ventas')->where('ventas.sucursal','=',Auth::user()->sucursal)->join('vendedores', 'vendedores.id','=','ventas.vendedor_id')->select('ventas.*','vendedores.categoria')->paginate(20);
+        $data = DB::table('ventas')->where('ventas.sucursal','=',Auth::user()->sucursal)->join('vendedores', 'vendedores.id','=','ventas.vendedor_id')->join('clientes', 'clientes.id','=','ventas.cliente_id')->select('ventas.*','clientes.nombre','clientes.apellido_p')->paginate(20);
         
         return view('tablas.ventas',compact('data'))->with('i', (request()->input('page',1)-1)*20);
     }
@@ -39,9 +44,14 @@ class VentaController extends Controller
         if(Auth::guest()){
             return redirect()->route('login');
         }
+        if(Auth::user()->role=='Manager'){
+            return redirect()->route('ventas');
+        }
         if(Auth::user()->role=='Admin'){
-            $data = DB::table('ventas')->where('sucursal','<',100)->paginate(20);
-            return view('tablas.ventas',compact('data'))->with('i', (request()->input('page',1)-1)*20);
+            $idsClientes = DB::table('clientes')->where('sucursal','>',0)->get();
+            $idsVendedores = DB::table('vendedores')->where('sucursal','>',0)->get();
+            $data = [$idsClientes, $idsVendedores];
+            return view('forms.venta',['data'=>$data]);
         }
         /* $data = Auth::user()->sucursal;
         return view('tablas.vendedores',$data); */
@@ -49,6 +59,13 @@ class VentaController extends Controller
         $idsVendedores = DB::table('vendedores')->where('sucursal','=',Auth::user()->sucursal)->get();
         $data = [$idsClientes, $idsVendedores];
         return view('forms.venta',['data'=>$data]);
+    }
+    public function idList2(Request $request)
+    {
+        $idsClientes = DB::table('clientes')->where('sucursal','=',$request->sucursal)->get();
+        $idsVendedores = DB::table('vendedores')->where('sucursal','=',$request->sucursal)->get();
+        $data = [$idsClientes, $idsVendedores];
+        return $data;
     }
     /**
      * Show the form for creating a new resource.
@@ -130,6 +147,7 @@ class VentaController extends Controller
      */
     public function store(Request $request)
     {
+       
         $categoriaVendedor = DB::table('vendedores')->where('id',$request->idVendedor)->value('Categoria');
         $tipoCliente = DB::table('clientes')->where('id',$request->idCliente)->value('tipo_cliente');
         if($request->tipoVenta =='Renta'){
@@ -158,13 +176,38 @@ class VentaController extends Controller
         $venta -> fecha = $request ->fechaVenta;
         if(Auth::user()->role != 'Admin'){
             $venta->sucursal = Auth::user()->sucursal;
+        }else{
+            $venta->sucursal = $request->sucursal;
         }
         $venta ->semana = $semana[0]->semana;
         $venta -> save();
         return redirect()->route('ventas');
 
     }
- 
+    
+    public function comisiones(){
+        if(Auth::guest()){
+            return redirect()->route('login');
+        }
+        if(Auth::user()->role=='Admin'){
+            /* $data = DB::table('ventas')->where('sucursal','<',100)->paginate(20); */
+            $data = DB::table('ventas')->where('ventas.sucursal','>',0)->join('vendedores', 'vendedores.id','=','ventas.vendedor_id')->select('ventas.*','vendedores.nombre','vendedores.apellido_p','vendedores.categoria','vendedores.apellido_m')->paginate(20);
+        
+            return view('tablas.comisiones',compact('data'))->with('i', (request()->input('page',1)-1)*20);
+        }
+        /* $data = Auth::user()->sucursal;
+        return view('tablas.vendedores',$data); */
+        $data = DB::table('ventas')->where('sucursal','=',Auth::user()->sucursal)->paginate(20);
+        
+        /* return DB::select('select ventas.*, vendedores.categoria from ventas INNER JOIN vendedores ON vendedores.id = ventas.vendedor_id where ventas.sucursal=?',[Auth::user()->sucursal])->paginate(20);
+         */
+        /* return DB::table('ventas')->where('ventas.sucursal','=',Auth::user()->sucursal)->join('vendedores', 'vendedores.id','=','ventas.vendedor_id')->paginate(20);
+        */ 
+        $data = DB::table('ventas')->where('ventas.sucursal','=',Auth::user()->sucursal)->join('vendedores', 'vendedores.id','=','ventas.vendedor_id')->select('ventas.*','vendedores.nombre','vendedores.apellido_p','vendedores.categoria','vendedores.apellido_m')->paginate(20);
+        
+        return view('tablas.comisiones',compact('data'))->with('i', (request()->input('page',1)-1)*20);
+    }
+    
     /**
      * Display the specified resource.
      */

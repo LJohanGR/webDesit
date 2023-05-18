@@ -1,7 +1,7 @@
 @extends('layouts.app2')
-@section('Titulo','Registrar Vendedor')
+@section('Titulo','Editar Vendedor')
 @section('contenido')
-<div class="headerTabla mb-5">
+<div class="headerTabla mb-5" style="margin-top:120px">
     <button type="button" class="btn btn-light"  onclick="location.href ='/vendedores';">Volver</button>
     <span><h2>Editar vendedor</h2></span>
     <a href="#"></a>

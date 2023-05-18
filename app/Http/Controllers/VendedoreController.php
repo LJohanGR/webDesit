@@ -24,7 +24,7 @@ class VendedoreController extends Controller
         /* $data = Auth::user()->sucursal;
         return view('tablas.vendedores',$data); */
         $data = DB::table('vendedores')->where('sucursal','=',Auth::user()->sucursal)->paginate(20);
-       
+       /*  Select * from 'vendedores' where sucursal = '2' */
         return view('tablas.vendedores',compact('data'))->with('i', (request()->input('page',1)-1)*20);
         
       /*   $data = Vendedore::orderBy('id','desc')->paginate(5);
@@ -62,7 +62,7 @@ class VendedoreController extends Controller
         foreach ($vendedor->except('_token') as $key => $part) {
             $arr = $key;
           }
-        
+
         $data = DB::table('vendedores')->where('id','=',$arr)->first();
         return view('forms.editVendedor',['data' => $data]);
     }

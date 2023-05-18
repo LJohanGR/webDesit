@@ -17,7 +17,7 @@ use App\Http\Controllers\registrar;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Auth::routes();
@@ -33,11 +33,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/vendedores', [VendedoreController::class,'index'])->name('vendedores');
 Route::get('/clientes', [ClientesController::class,'index'])->name('clientes');
 Route::get('/ventas', [VentaController::class,'index'])->name('ventas');
+Route::get('/comisiones', [VentaController::class,'comisiones'])->name('comisiones');
 
-
-Route::get('/registrar-vendedor', function(){
-    return view('forms.vendedor');
-})->name('registrar-vendedor');
+Route::get('/registrar-vendedor',[registrar::class,'registrarVendedor'])->name('registrar-vendedor');
 Route::post('/registrar-vendedor', [registrar::class,'store']);
 Route::delete('/vendedores', [VendedoreController::class,'destroy']);
 Route::post('/vendedores', [VendedoreController::class,'edit']);
@@ -46,9 +44,7 @@ Route::put('/editar-vendedor', [VendedoreController::class,'update']);
 
 
 
-Route::get('/registrar-cliente', function(){
-    return view('forms.cliente');
-})->name('registrar-cliente');
+Route::get('/registrar-cliente',[registrar::class,'registrarCliente'])->name('registrar-cliente');
 Route::post('/registrar-cliente', [registrar::class,'storeCliente']);
 Route::delete('/clientes', [ClientesController::class,'destroy']);
 Route::post('/clientes', [ClientesController::class,'edit']);
@@ -60,3 +56,4 @@ Route::put('/editar-cliente', [ClientesController::class,'update']);
 })->name('registrar-venta'); */
 Route::get('/registrar-venta',[VentaController::class,'idList']);
 Route::post('/registrar-venta', [VentaController::class,'store'])->name('registrar-venta');
+Route::post('miJQueryAjax',[VentaController::class,'idList2'])->name('ajax');

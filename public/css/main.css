@@ -1,6 +1,12 @@
+html,body{
+ height: 100%;
+ overflow: auto;
+}
 body{
-  background:linear-gradient(rgba(104, 104, 104, 0.678), rgba(83, 83, 83, 0.13)), url('/images/background.jpg');
-  
+  /* background-color: aqua; */
+  background-image: linear-gradient(0deg, #FFDEE9 35%, #B5FFFC 100%);
+  /* background:linear-gradient(rgba(216, 230, 241, 0.959), rgba(99, 247, 156, 0.795)), url('/images/background.jpg');
+   */
 } 
 
 .navbar{
@@ -8,13 +14,13 @@ body{
 }
 
 .navbar-brand{
-  color: white;
+  color: rgb(5, 5, 5);
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 20px;
 }
 .navbar-nav > a{
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 1.3rem;
   font-weight: 500;
 }
@@ -31,12 +37,12 @@ body{
   color: black;
 }
 #navbarDropdown{
-  color:white;
+  color:rgb(0, 0, 0);
   font-size: 1.3rem;
 }
 .dropdown-menu{
   
-  background-color: rgba(231, 218, 211, 0.753);
+  background-color: rgba(163, 163, 163, 0.753);
   
   font-size: 1.3rem;
 }
@@ -56,8 +62,10 @@ body{
   color: white;
 }
 .mainForms{
-  display: flex;
+
   justify-content: center;
+
+  
 }
 .contenido-forms{
   display: flex;
@@ -105,3 +113,27 @@ td > .row > .col{
 .form-check-input{
   font-size: 1.3rem;
 } 
+#mainContenido{
+  color: rgb(0, 0, 0);
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.mensajeHome{
+  color: black;
+}
+#ventaForm{
+  width: 95%;
+}
+
+
+td {
+  vertical-align: middle;
+    text-align: center;
+}
+tr.border-bottom td {
+  border-bottom: 1pt solid #000000;
+}
+
+.card-text{
+  color: black;
+}

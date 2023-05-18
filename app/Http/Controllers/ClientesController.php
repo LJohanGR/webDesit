@@ -13,6 +13,7 @@ class ClientesController extends Controller
         if(Auth::guest()){
             return redirect()->route('login');
         }
+       
         if(Auth::user()->role=='Admin'){
             $data = DB::table('clientes')->where('sucursal','<',100)->paginate(20);
             return view('tablas.clientes',compact('data'))->with('i', (request()->input('page',1)-1)*20);

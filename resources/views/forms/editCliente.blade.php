@@ -1,10 +1,10 @@
 @extends('layouts.app2')
-@section('Titulo','Registrar Cliente')
+@section('Titulo','Editar Cliente')
 @section('contenido')
     
-<div class="headerTabla mb-5">
+<div class="headerTabla mb-5" style="margin-top:120px">
     <button type="button" class="btn btn-light"  onclick="location.href ='/clientes';">Volver</button>
-    <span><h2>Registrar vendedor</h2></span>
+    <span><h2>Editar cliente</h2></span>
     <a href="#"></a>
 </div>
 <div class="mainForms">

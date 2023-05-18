@@ -6,9 +6,28 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rules;
 use App\Models\Vendedore;
 use App\Models\Cliente;
+use Auth;
 
 class registrar extends Controller
 {
+    public function registrarVendedor(){
+        if(Auth::guest()){
+            return redirect()->route('login');
+        }
+        if(Auth::user()->role=='Manager'){
+            return redirect()->route('vendedores');
+        }
+        return view('forms.vendedor');
+    }
+    public function registrarCliente(){
+        if(Auth::guest()){
+            return redirect()->route('login');
+        }
+        if(Auth::user()->role=='Manager'){
+            return redirect()->route('clientes');
+        }
+        return view('forms.cliente');
+    }
     public function store(Request $request){
         /* return $request; */
         /* $request->validate([
@@ -38,7 +57,7 @@ class registrar extends Controller
     }
 
     public function storeCliente(Request $request){
-        
+       
         $cliente = new Cliente;
         $cliente -> nombre =  $request -> nombreClient;
         $cliente -> apellido_p =  $request -> apellidoPClient;
